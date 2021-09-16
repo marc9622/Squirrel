@@ -27,7 +27,7 @@ class LevelObject {
   }
   
   boolean isTouching() {
-    float runnerSize = level.runner.size / 2;
+    float runnerSize = 0; //level.runner.size / 2;
     float sizeX = size.x / 2, sizeY = size.y / 2;
     float currentPosX = pos.x - level.dis;
     if(

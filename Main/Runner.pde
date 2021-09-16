@@ -8,6 +8,7 @@ class Runner {
   PImage running2Image = loadImage("Assets/Running2.png");
   PImage jumpingImage = loadImage("Assets/Jumping.png");
   PImage glidingImage = loadImage("Assets/Gliding.png");
+  PImage deadImage = loadImage("Assets/Dead.png");
   String imageState = "running1";
   float gravity = 1.8;
   float glideMaxSpeed = 2;
@@ -20,6 +21,7 @@ class Runner {
     running2Image.resize(size, size);
     jumpingImage.resize(size, size);
     glidingImage.resize((int)(size * 1.25), (int)(size * 1.25));
+    deadImage.resize(size, (int)(size / 1.8));
   }
   
   void display() {
@@ -49,7 +51,7 @@ class Runner {
       case "crouching2":
         break;
       case "dead":
-        image(glidingImage, 300, pos);
+        image(deadImage, 315, pos + 30);
         break;
     }
     move();

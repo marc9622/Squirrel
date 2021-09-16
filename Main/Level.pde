@@ -58,19 +58,26 @@ class Level {
       }
     for(LevelObject object : levelObjects)
       object.display();
-    if(frameCount % 100 == 0)
-      levelObjects.add(newObject());
-    if(frameCount % 250 == 0)
+    if(frameCount % 75 == 0)
+      spawnObject();
+    if(frameCount % 210 == 0)
       levelObjects.add(new Coin(this));
   }
   
-  LevelObject newObject() {
-    int rnd = (int)random(100);
-    if(rnd <= 10)
-      return new Obstacle(this, "Turtle");
-    if(rnd <= 100)
-      return new Obstacle(this, "Hedgehog");
-    return null;
+  void spawnObject() {
+    LevelObject object = getRandomObstacle();
+    if(object != null)
+      levelObjects.add(object);
   }
   
+  LevelObject getRandomObstacle() {
+    int rnd = (int)random(100);
+    if(rnd <= 20)
+      return new Obstacle(this, "Turtle");
+    if(rnd <= 40)
+      return new Obstacle(this, "Hedgehog");
+    if(rnd <= 60)
+      return new Obstacle(this, "Spikes");
+    return null;
+  }
 }

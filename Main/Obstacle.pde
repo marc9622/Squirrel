@@ -7,7 +7,7 @@ class Obstacle extends LevelObject {
     super(level);
     type = obstacleType;
     setObstacleType();
-    setPosition();
+    setPositionX();
   }
   
   void setObstacleType() {
@@ -18,16 +18,19 @@ class Obstacle extends LevelObject {
         images.get(0).resize((int)size.x, (int)size.y);
         images.add(loadImage("Assets/Turtle2.png"));
         images.get(1).resize((int)size.x, (int)size.y);
+        pos.y = 950;
         break;
       case "Hedgehog":
         size = new PVector(195, 153);
         images.add(loadImage("Assets/Hedgehog.png"));
         images.get(0).resize((int)size.x, (int)size.y);
+        pos.y = 950;
         break;
-      case "Spike":
-        size = new PVector(195, 153);
-        images.add(loadImage("Assets/Hedgehog.png"));
+      case "Spikes":
+        size = new PVector(276, 438);
+        images.add(loadImage("Assets/Spikes.png"));
         images.get(0).resize((int)size.x, (int)size.y);
+        pos.y = 800;
         break;
     }
   }
@@ -44,14 +47,14 @@ class Obstacle extends LevelObject {
         case "Hedgehog":
           level.runner.die();
           break;
-        case "Rope":
+        case "Spikes":
           level.runner.die();
           break;
       }
   }
   
-  void setPosition() {
-    pos = new PVector(width + level.dis + size.x, 950);
+  void setPositionX() {
+    pos.x = width + level.dis + size.x;
   }
   
 }
