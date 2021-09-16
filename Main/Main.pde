@@ -23,9 +23,11 @@ void pause() {
 }
 
 void keyPressed() {
-  level.runner.jumpPress();
+  if(!isDead && !isPaused)
+    level.runner.jumpPress();
 }
 
 void keyReleased() {
-  level.runner.jumpRelease();
+  if(!isDead && !isPaused)
+    level.runner.jumpRelease();
 }

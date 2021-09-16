@@ -3,17 +3,23 @@ class Runner {
   float pos;
   float vel;
   float acc;
-  PImage running1Image;
-  PImage running2Image;
-  PImage jumpingImage;
-  PImage glidingImage;
+  int size = 160;
+  PImage running1Image = loadImage("Assets/Running1.png");
+  PImage running2Image = loadImage("Assets/Running2.png");
+  PImage jumpingImage = loadImage("Assets/Jumping.png");
+  PImage glidingImage = loadImage("Assets/Gliding.png");
   String imageState = "running1";
   float gravity = 1.8;
   float glideMaxSpeed = 2;
   boolean isOnGround = true, canDoubleJump = true;
   boolean isJumpPressed, isJumping;
+  
   Runner() {
     pos = 950;
+    running1Image.resize(size, size);
+    running2Image.resize(size, size);
+    jumpingImage.resize(size, size);
+    glidingImage.resize((int)(size * 1.25), (int)(size * 1.25));
   }
   
   void display() {
@@ -43,6 +49,7 @@ class Runner {
       case "crouching2":
         break;
       case "dead":
+        image(glidingImage, 300, pos);
         break;
     }
     move();
@@ -114,6 +121,7 @@ class Runner {
   
   void die() {
     isDead = true;
+    imageState = "dead";
   }
   
 }

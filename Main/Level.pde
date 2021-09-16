@@ -9,79 +9,33 @@ class Level {
   float loopDisTrees1 = 0;
   float loopDisTrees2 = 0;
   float loopDisGround = 0;
-  PImage groundImage;
-  PImage trees1Image;
-  PImage trees2Image;
-  PImage bgImage;
+  PImage groundImage = loadImage("Assets/Ground.png");
+  PImage trees1Image = loadImage("Assets/Trees1.png");
+  PImage trees2Image = loadImage("Assets/Trees2.png");
+  PImage bgImage = loadImage("Assets/Sky.png");
   
   Level() {
-    loadImages();
-    levelObjects.add(new Obstacle(this, "turtle"));
-  }
-  
-  void loadImages() {
-    groundImage = loadImage("Assets/Ground.png");
     groundImage.resize(height, height);
-    
-    trees1Image = loadImage("Assets/Trees1.png");
     trees1Image.resize(height, height);
-    
-    trees2Image = loadImage("Assets/Trees2.png");
     trees2Image.resize(height, height);
-    
-    bgImage = loadImage("Assets/Sky.png");
     bgImage.resize(height, height);
-    
-    runner.running1Image = loadImage("Assets/Running1.png");
-    runner.running1Image.resize(160, 160);
-    
-    runner.running2Image = loadImage("Assets/Running2.png");
-    runner.running2Image.resize(160, 160);
-    
-    runner.jumpingImage = loadImage("Assets/Jumping.png");
-    runner.jumpingImage.resize(160, 160);
-    
-    runner.glidingImage = loadImage("Assets/Gliding.png");
-    runner.glidingImage.resize(200, 200);
-  }  
+  }
   
   void display() {
-    drawBackground();
-    drawGround();
-    drawTrees2();
-    drawTrees1();
+    drawImage(bgImage, loopDisBg);
+    drawImage(trees2Image, loopDisTrees2);
+    drawImage(groundImage, loopDisGround);
+    drawImage(trees1Image, loopDisTrees1);
     if(!isDead) move();
-    for(LevelObject object : levelObjects)
-      object.display();
+    manageObjects();
     runner.display();
-  }
-    
-  void drawBackground() {
-    fill(255);
-    image(bgImage, (int)(height/2 - loopDisBg), height/2);
-    image(bgImage, (int)(height/2 + height - loopDisBg) - 1, height/2);
-    image(bgImage, (int)(height/2 + 2*height - loopDisBg) - 2, height/2);
+    scoreboard.display();
   }
   
-  void drawTrees1() {
-    fill(255);
-    image(trees1Image, (int)(height/2 - loopDisTrees1), height/2);
-    image(trees1Image, (int)(height/2 + height - loopDisTrees1) - 1, height/2);
-    image(trees1Image, (int)(height/2 + 2*height - loopDisTrees1) - 2, height/2);
-  }
-  
-  void drawTrees2() {
-    fill(255);
-    image(trees2Image, (int)(height/2 - loopDisTrees2), height/2 - 100);
-    image(trees2Image, (int)(height/2 + height - loopDisTrees2) - 1, height/2 - 100);
-    image(trees2Image, (int)(height/2 + 2*height - loopDisTrees2) - 2, height/2 - 100);
-  }
-  
-  void drawGround() {
-    fill(255);
-    image(groundImage, (int)(height/2 - loopDisGround), height/2);
-    image(groundImage, (int)(height/2 + height - loopDisGround) - 1, height/2);
-    image(groundImage, (int)(height/2 + 2*height - loopDisGround) - 2, height/2);
+  void drawImage(PImage image, float loopDis) {
+    image(image, (int)(height/2 - loopDis), height/2);
+    image(image, (int)(height/2 + height - loopDis) - 1, height/2);
+    image(image, (int)(height/2 + 2*height - loopDis) - 2, height/2);
   }
   
   void move() {
@@ -96,8 +50,27 @@ class Level {
     else loopDisGround += spd;
   }
   
-  void spawnObjects() {
-    
+  void manageObjects() {
+    for(LevelObject object : levelObjects)
+      if(object.pos.x + object.size.x - dis < 0) {
+        levelObjects.remove(object);
+        break;
+      }
+    for(LevelObject object : levelObjects)
+      object.display();
+    if(frameCount % 100 == 0)
+      levelObjects.add(newObject());
+    if(frameCount % 250 == 0)
+      levelObjects.add(new Coin(this));
+  }
+  
+  LevelObject newObject() {
+    int rnd = (int)random(100);
+    if(rnd <= 10)
+      return new Obstacle(this, "Turtle");
+    if(rnd <= 100)
+      return new Obstacle(this, "Hedgehog");
+    return null;
   }
   
 }
