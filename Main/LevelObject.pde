@@ -12,16 +12,14 @@ class LevelObject {
   }
   
   void display() {
-    image(images.get(currentImage), pos.x - level.dis, pos.y);
+    image(images.get(currentImage), pos.x - level.distance, pos.y);
     if(shouldUpdateAnimation())
-      if(currentImage + 1 >= images.size())
-        currentImage = 0;
-      else
-        currentImage++;
+      if(currentImage + 1 >= images.size()) currentImage = 0;
+      else currentImage++;
   }
   
   boolean shouldUpdateAnimation() {
-    if(frameCount % 6 == 0)
+    if(!isPaused && frameCount % 6 == 0)
       return true;
     return false;
   }
@@ -29,7 +27,7 @@ class LevelObject {
   boolean isTouching() {
     float runnerSize = 0; //level.runner.size / 2;
     float sizeX = size.x / 2, sizeY = size.y / 2;
-    float currentPosX = pos.x - level.dis;
+    float currentPosX = pos.x - level.distance;
     if(
       level.runner.pos + runnerSize > pos.y - sizeY &&
       level.runner.pos - runnerSize < pos.y + sizeY &&

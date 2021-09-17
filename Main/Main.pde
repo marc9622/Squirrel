@@ -28,7 +28,7 @@ void pause() {
 
 void unPause() {
   surface.setResizable(false);
-  level.resizeImages();
+  level.resizeWindow();
   isPaused = false;
 }
 

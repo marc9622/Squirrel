@@ -1,41 +1,34 @@
-class Coin extends LevelObject {
+class Coin extends Collectable {
   
   int value;
-  boolean isCollected;
   
   Coin(Level level) {
     super(level);
+  }
+  
+  void loadImages() {
     size = new PVector(172, 171);
     images.add(loadImage("Assets/Coin1.png"));
     images.get(0).resize((int)size.x, (int)size.y);
     images.add(loadImage("Assets/Coin2.png"));
     images.get(1).resize((int)size.x, (int)size.y);
     images.add(loadImage("Assets/Coin3.png"));
-    images.get(1).resize((int)size.x, (int)size.y);
+    images.get(2).resize((int)size.x, (int)size.y);
     images.add(loadImage("Assets/Coin4.png"));
-    images.get(1).resize((int)size.x, (int)size.y);
+    images.get(3).resize((int)size.x, (int)size.y);
     images.add(loadImage("Assets/Coin5.png"));
-    images.get(1).resize((int)size.x, (int)size.y);
+    images.get(4).resize((int)size.x, (int)size.y);
     images.add(loadImage("Assets/Coin6.png"));
-    images.get(1).resize((int)size.x, (int)size.y);
-    setPosition();
-  }
-  
-  void display() {
-    if(isCollected)
-      return;
-    super.display();
-    if(isTouching())
-      collect();
+    images.get(5).resize((int)size.x, (int)size.y);
   }
   
   void collect() {
-    isCollected = true;
+    super.collect();
     level.scoreboard.score++;
   }
   
   void setPosition() {
-    pos = new PVector(width + level.dis + size.x, random(200, height - 480));
+    pos = new PVector(width + level.distance + size.x, random(200, height - 480));
   }
   
 }

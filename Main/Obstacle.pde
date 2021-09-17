@@ -37,9 +37,9 @@ class Obstacle extends LevelObject {
   
   void display() {
     super.display();
-    if(isTouching())
+    if(!level.runner.hasPowerUp && isTouching())
       switch(type) {
-        case "Turtle":
+        case "Turtle": 
           level.runner.isOnGround = false;
           level.runner.canDoubleJump = true;
           level.runner.jump();
@@ -54,7 +54,7 @@ class Obstacle extends LevelObject {
   }
   
   void setPositionX() {
-    pos.x = width + level.dis + size.x;
+    pos.x = width + level.distance + size.x;
   }
   
 }
