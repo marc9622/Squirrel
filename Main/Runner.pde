@@ -89,7 +89,7 @@ class Runner {
   }
   
   void glide() {
-    if(isJumpPressed && vel > glideMaxSpeed) {
+    if(!isDead && isJumpPressed && vel > glideMaxSpeed) {
       vel = glideMaxSpeed;
       imageState = "gliding";
     }
