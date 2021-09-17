@@ -34,6 +34,7 @@ class Runner {
   }
   
   void display() {
+    imageMode(CENTER);
     switch(imageState) {
       case "running1":
         image(running1Image, 300, pos);
@@ -137,7 +138,7 @@ class Runner {
   }
   
   void endPowerUp() {
-    if(millis() > powerUpTime) {
+    if(hasPowerUp && millis() > powerUpTime) {
       hasPowerUp = false;
       imageState = "running1";
       spd = 6;

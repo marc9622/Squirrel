@@ -12,6 +12,7 @@ class LevelObject {
   }
   
   void display() {
+    imageMode(CENTER);
     image(images.get(currentImage), pos.x - level.distance, pos.y);
     if(shouldUpdateAnimation())
       if(currentImage + 1 >= images.size()) currentImage = 0;

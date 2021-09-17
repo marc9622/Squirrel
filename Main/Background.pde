@@ -10,6 +10,7 @@ class Background {
   PImage bgImage = loadImage("Assets/Sky.png");
   
   void display() {
+    imageMode(CENTER);
     drawImage(bgImage, loopDisBg);
     drawImage(trees2Image, loopDisTrees2);
     drawImage(groundImage, loopDisGround);
