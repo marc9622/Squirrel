@@ -19,7 +19,7 @@ class LevelObject {
   }
   
   boolean shouldUpdateAnimation() {
-    if(!isPaused && frameCount % 6 == 0)
+    if(!level.isPaused && frameCount % 6 == 0)
       return true;
     return false;
   }

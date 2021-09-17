@@ -1,48 +1,24 @@
-Level level;
-boolean isPaused, isDead;
+Level level1;
 
 void setup() {
-  level = new Level();
+  level1 = new Level();
   size(1000, 750);
-  rectMode(CENTER);
-  imageMode(CENTER);
 }
 
 
 void draw() {
-  level.display();
-}
-
-void showScore() {
-  
-}
-
-void pause() {
-  if(isPaused) {
-    unPause();
-    return;
-  }
-  isPaused = true;
-  surface.setResizable(true);
-}
-
-void unPause() {
-  surface.setResizable(false);
-  level.resizeWindow();
-  isPaused = false;
+  level1.display();
 }
 
 void keyPressed() {
   if(key == ESC) {
     key = 0;
-    pause();
+    level1.pause();
     return;
   }
-  if(!isDead && !isPaused)
-    level.runner.jumpPress();
+  level1.runner.jumpPress();
 }
 
 void keyReleased() {
-  if(!isDead && !isPaused)
-    level.runner.jumpRelease();
+  level1.runner.jumpRelease();
 }

@@ -18,9 +18,12 @@ class Runner {
   boolean isOnGround = true, canDoubleJump = true;
   boolean isJumpPressed, isJumping;
   boolean hasPowerUp;
+  boolean isDead;
   float powerUpTime;
+  Level level;
   
-  Runner() {
+  Runner(Level level) {
+    this.level = level;
     pos = 950;
     running1Image.resize(size, size);
     running2Image.resize(size, size);
@@ -62,7 +65,7 @@ class Runner {
   }
   
   boolean shouldUpdateAnimation() {
-    if(!isPaused && frameCount % 6 == 0) return true;
+    if(!level.isPaused && frameCount % 6 == 0) return true;
     return false;
   }
   
@@ -104,6 +107,7 @@ class Runner {
   }
   
   void jumpPress() {
+    if(isDead || level.isPaused) return;
     isJumpPressed = true;
     if(isJumping) return;
     if(isOnGround) {
@@ -120,6 +124,7 @@ class Runner {
   }
   
   void jumpRelease() {
+    if(isDead || level.isPaused) return;
     isJumpPressed = false;
     isJumping = false;
   }

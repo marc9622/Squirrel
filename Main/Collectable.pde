@@ -9,7 +9,6 @@ class Collectable extends LevelObject {
   }
   
   void loadImages() {
-
   }
   
   void display() {
