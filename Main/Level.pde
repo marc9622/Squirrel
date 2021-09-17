@@ -3,6 +3,7 @@ class Level {
   ArrayList<LevelObject> levelObjects = new ArrayList<LevelObject>();
   Runner runner = new Runner();
   Scoreboard scoreboard = new Scoreboard();
+  PauseMenu pauseMenu = new PauseMenu();
   float spd = 6;
   float dis = 0;
   float loopDisBg = 0;
@@ -15,6 +16,20 @@ class Level {
   PImage bgImage = loadImage("Assets/Sky.png");
   
   Level() {
+    resizeImage(groundImage);
+    resizeImage(trees1Image);
+    resizeImage(trees2Image);
+    resizeImage(bgImage);
+  }
+  
+  void resizeImage(PImage image) {
+    image.resize(height, height);
+    image.resize(height, height);
+    image.resize(height, height);
+    image.resize(height, height);
+  }
+  
+  void resizeImages() {
     groundImage.resize(height, height);
     trees1Image.resize(height, height);
     trees2Image.resize(height, height);
@@ -26,7 +41,13 @@ class Level {
     drawImage(trees2Image, loopDisTrees2);
     drawImage(groundImage, loopDisGround);
     drawImage(trees1Image, loopDisTrees1);
-    if(!isDead) move();
+    if(isPaused)
+      pauseMenu.display();
+    else {
+      runner.move();
+      if(!isDead)
+        move();
+    }
     manageObjects();
     runner.display();
     scoreboard.display();
@@ -58,6 +79,8 @@ class Level {
       }
     for(LevelObject object : levelObjects)
       object.display();
+    if(isPaused)
+      return;
     if(frameCount % 75 == 0)
       spawnObject();
     if(frameCount % 210 == 0)

@@ -54,11 +54,10 @@ class Runner {
         image(deadImage, 315, pos + 30);
         break;
     }
-    move();
   }
   
   boolean shouldUpdateAnimation() {
-    if(frameCount % 6 == 0)
+    if(!isPaused && frameCount % 6 == 0)
       return true;
     return false;
   }
@@ -72,13 +71,14 @@ class Runner {
   }
   
   void gravity() {
-    if(pos > 950) {
-      pos = 950;
+    float groundPos = height - 130;
+    if(pos > groundPos) {
+      pos = groundPos;
       vel = 0;
       isOnGround = true;
       imageState = "running1";
     }
-    if(pos < 950) {
+    if(pos < groundPos) {
       acc += gravity;
     }
   }

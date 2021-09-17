@@ -18,19 +18,19 @@ class Obstacle extends LevelObject {
         images.get(0).resize((int)size.x, (int)size.y);
         images.add(loadImage("Assets/Turtle2.png"));
         images.get(1).resize((int)size.x, (int)size.y);
-        pos.y = 950;
+        pos.y = height - 130;
         break;
       case "Hedgehog":
         size = new PVector(195, 153);
         images.add(loadImage("Assets/Hedgehog.png"));
         images.get(0).resize((int)size.x, (int)size.y);
-        pos.y = 950;
+        pos.y = height - 130;
         break;
       case "Spikes":
         size = new PVector(276, 438);
         images.add(loadImage("Assets/Spikes.png"));
         images.get(0).resize((int)size.x, (int)size.y);
-        pos.y = 800;
+        pos.y = height - 280;
         break;
     }
   }

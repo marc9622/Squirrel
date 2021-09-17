@@ -35,7 +35,7 @@ class Coin extends LevelObject {
   }
   
   void setPosition() {
-    pos = new PVector(width + level.dis + size.x, random(200, 600));
+    pos = new PVector(width + level.dis + size.x, random(200, height - 480));
   }
   
 }
