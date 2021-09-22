@@ -3,11 +3,12 @@ class ScoreManager {
   int score = 0;
   int[] highscores = new int[5];
   PImage signImage;
+  String file = "scores.txt";
   
   ScoreManager() {
     signImage = loadImage("Assets/Sign.png");
     signImage.resize(193, 100);
-    highscores = getHighScores();
+    highscores = getHighscores();
   }
   
   void display() {
@@ -18,13 +19,34 @@ class ScoreManager {
     text(score, 122, 93);
   }
   
-  void saveScore() {
-    
+  void updateHighscore() {
+    getHighscores();
+    setHighscores(score);
+    updateScoreFile();
   }
   
-  int[] getHighScores() {
-    int[] scoresInt = new int[5];
-    String[] scoresString = readScoreFile("scores.txt");
+  void setHighscores(int newScore) {
+    for(int i = 0; i < highscores.length; i++) {
+      if(highscores[i] < newScore) {
+        for(int j = highscores.length - 1; j > i - 1 && j > 0; j--) {
+          highscores[j] = highscores[j - 1];
+        }
+        highscores[i] = newScore;
+        return;
+      }
+    }
+  }
+  
+  void updateScoreFile() {
+    String[] scoresString = new String[highscores.length];
+    for(int i = 0; i < scoresString.length; i++)
+      scoresString[i] = Integer.toString(highscores[i]);
+    saveStrings(file, scoresString);
+  }
+  
+  int[] getHighscores() {
+    int[] scoresInt = new int[highscores.length];
+    String[] scoresString = readScoreFile();
     for(int i = 0; i < scoresInt.length; i++) {
       if(i >= scoresString.length || scoresString[i] == null)
         scoresInt[i] = 0;
@@ -34,7 +56,7 @@ class ScoreManager {
     return scoresInt;
   }
   
-  String[] readScoreFile(String file) {
+  String[] readScoreFile() {
     String[] scoresString = null;
     scoresString = loadStrings(file);
     if(scoresString != null) {

@@ -13,6 +13,7 @@ class Runner {
   PImage deadImage = loadImage("Assets/Dead.png");
   String imageState = "running1";
   float gravity = 1.8;
+  float groundPos = height - 130;
   float glideMaxSpeed = 2;
   float powerFlyingSpeed = 10;
   boolean isOnGround = true, canDoubleJump = true;
@@ -78,6 +79,7 @@ class Runner {
     if(hasPowerUp) {
       if(isJumpPressed) vel = -powerFlyingSpeed;
       else vel = powerFlyingSpeed;
+      if(isUnderGround()) pos = groundPos;
       return;
     }
     gravity();
@@ -85,14 +87,17 @@ class Runner {
   }
   
   void gravity() {
-    float groundPos = height - 130;
-    if(pos > groundPos) {
+    if(isUnderGround()) {
       pos = groundPos;
       vel = 0;
       isOnGround = true;
       imageState = "running1";
     }
     else if(pos < groundPos) acc += gravity;
+  }
+  
+  boolean isUnderGround() {
+    return pos > groundPos;
   }
     
   void jump() {
@@ -110,7 +115,7 @@ class Runner {
   void jumpPress() {
     if(isDead || level.isPaused) return;
     isJumpPressed = true;
-    if(isJumping) return;
+    if(isJumping || hasPowerUp) return;
     if(isOnGround) {
       jump();
       isOnGround = false;
@@ -146,8 +151,11 @@ class Runner {
   }
   
   void die() {
+    if(isDead)
+      return;
     isDead = true;
     imageState = "dead";
+    level.scoreboard.updateHighscore();
   }
   
 }

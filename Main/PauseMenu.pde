@@ -55,10 +55,15 @@ class PauseMenu {
   
   void displayScores() {
     image(scoreHighScore1, width / 2, height / 15 * 2);
+    text(level.scoreboard.highscores[0], width / 2, height / 15 * 2 + 18);
     image(scoreHighScore2, width / 2, height / 15 * 4);
+    text(level.scoreboard.highscores[1], width / 2, height / 15 * 4 + 18);
     image(scoreHighScore3, width / 2, height / 15 * 6);
+    text(level.scoreboard.highscores[2], width / 2, height / 15 * 6 + 18);
     image(scoreHighScore4, width / 2, height / 15 * 8);
+    text(level.scoreboard.highscores[3], width / 2, height / 15 * 8 + 18);
     image(scoreHighScore5, width / 2, height / 15 * 10);
+    text(level.scoreboard.highscores[4], width / 2, height / 15 * 10 + 18);
     image(scoreRestart, width / 2, height / 15 * 12);
   }
   
