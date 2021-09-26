@@ -72,6 +72,7 @@ class Runner {
   }
   
   void move() {
+    groundPos = height - 130;
     endPowerUp();
     pos += vel;
     vel += acc;
