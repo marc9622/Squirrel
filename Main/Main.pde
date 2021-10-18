@@ -1,12 +1,8 @@
-import de.bezier.data.sql.*;
-SQLite database;
-
 Level level1;
 
 void setup() {
-  database = new SQLite(this, "scores.sqlite");
-  level1 = new Level();
   size(800, 600);
+  level1 = new Level(this);
 }
 
 void draw() {

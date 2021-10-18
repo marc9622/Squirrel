@@ -41,6 +41,7 @@ class PauseMenu {
   void displayDead() {
     imageMode(CENTER);
     if(shouldDisplayScores) {
+      while(level.scoreboard.highscoreUpdaterThread.isAlive()) {} //Waits for the scoreboard to get scores from the database
       displayScores();
       return;
     }

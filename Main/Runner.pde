@@ -154,9 +154,8 @@ class Runner {
   void die() {
     if(isDead)
       return;
+    level.die();
     isDead = true;
     imageState = "dead";
-    level.scoreboard.updateHighscore();
   }
-  
 }

@@ -1,15 +1,24 @@
 class Level {
   
   Runner runner = new Runner(this);
-  ScoreManager scoreboard = new ScoreManager();
+  ScoreManager scoreboard;
   PauseMenu pauseMenu = new PauseMenu(this);
   Background background = new Background();
   ObjectManager objectManager = new ObjectManager(this);
   boolean isPaused;
   float distance = 0;
+  PImage icon = loadImage("Assets/Running1.png");
 
-  Level() {
+  Level(PApplet pApplet) {
+    scoreboard = new ScoreManager(pApplet);
+    setWindow();
+  }
+  
+  void setWindow() {
     background.resizeImages();
+    surface.hideCursor();
+    surface.setTitle("Squirrel Game");
+    surface.setIcon(icon);
   }
   
   void display() {
@@ -43,11 +52,19 @@ class Level {
     }
     isPaused = true;
     surface.setResizable(true);
+    surface.showCursor();
   }
   
   void unPause() {
     surface.setResizable(false);
+    surface.showCursor();
     background.resizeImages();
     isPaused = false;
+  }
+  
+  void die() {
+    scoreboard.highscoreUpdaterThread.start();
+    surface.setResizable(true);
+    surface.showCursor();
   }
 }
